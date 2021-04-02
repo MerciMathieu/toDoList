@@ -5,7 +5,7 @@ security:
     providers:
         doctrine:
             entity:
-                class: AppBundle:User
+                class: App:User
                 property: username
 
     firewalls:
