@@ -2,9 +2,9 @@
 
 namespace App\Tests\AppBundle\Controller;
 
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TaskControllerTest extends TestCase
+class TaskControllerTest extends WebTestCase
 {
 //    public function testSomething(): void
 //    {
