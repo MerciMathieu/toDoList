@@ -4,4 +4,4 @@ php:
 
 script:
     - composer install
-    - php /bin/phpunit /tests/AppBundle/
+    - php bin/phpunit tests/AppBundle/
