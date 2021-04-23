@@ -26,7 +26,7 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/login');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
 
-        $client->submitForm('Se connecter', ['_username' => 'testtest', '_password' => 'test']);
+        $client->submitForm('Se connecter', ['_username' => 'test', '_password' => 'test']);
 
         $client->followRedirect();
 
