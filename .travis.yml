@@ -1,8 +1,7 @@
 language: php
 php:
-    - '7.0'
     - '8.0'
 
 script:
     - composer install
-    - vendor/bin/phpunit
+    - php /bin/phpunit /tests/AppBundle/
