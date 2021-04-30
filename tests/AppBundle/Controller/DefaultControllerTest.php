@@ -2,6 +2,7 @@
 
 namespace App\Tests\AppBundle\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
@@ -19,22 +20,17 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testHomepageIsUp(): void
+    public function testHomepageIsUpWhenLoggedIn(): void
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/login');
-        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $userRepository = static::$container->get(UserRepository::class);
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $client->loginUser($user);
 
-        $client->submitForm('Se connecter', ['_username' => 'test', '_password' => 'test']);
-
-        $client->followRedirect();
+        $client->request('GET', '/');
 
         $this->assertRouteSame('homepage');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-//        $this->assertSame(4, $crawler->filter('.row')->count());
-//        $this->assertSame(5, $crawler->filter('html:contains("a")')->count());
-
     }
 }
