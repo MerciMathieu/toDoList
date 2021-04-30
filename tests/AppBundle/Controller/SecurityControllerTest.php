@@ -2,6 +2,7 @@
 
 namespace App\Tests\AppBundle\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
