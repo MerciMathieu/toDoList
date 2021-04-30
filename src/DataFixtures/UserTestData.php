@@ -7,7 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
-class AppFixtures extends Fixture
+class UserTestData extends Fixture
 {
     private $encoderFactory;
 
