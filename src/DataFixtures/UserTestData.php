@@ -32,6 +32,4 @@ class CreateUserTestData extends Fixture
 
         $manager->flush();
     }
-
-
 }
