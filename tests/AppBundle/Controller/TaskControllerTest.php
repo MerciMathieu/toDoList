@@ -5,9 +5,12 @@ namespace App\Tests\AppBundle\Controller;
 use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 
 class TaskControllerTest extends WebTestCase
 {
+    use FixturesTrait;
+
     public function testListPageIsUp(): void
     {
         $client = static::createClient();
@@ -139,5 +142,87 @@ class TaskControllerTest extends WebTestCase
         $updatedTask = $taskRepository->findOneById($taskId);
         $this->assertSame('updated title', $updatedTask->getTitle());
         $this->assertSame('updated content', $updatedTask->getContent());
+    }
+
+    public function testToggleTaskAction(): void
+    {
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $taskRepository = static::$container->get(TaskRepository::class);
+
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $client->loginUser($user);
+
+        //        CREER UNE TASK via fixtures
+        $task = $taskRepository->findOneBy(['title' => 'test']);
+        $taskId = $task->getId();
+
+        $this->assertFalse($task->getIsDone());
+
+        $client->request('GET', "/tasks/$taskId/toggle");
+
+        $this->assertTrue($task->getIsDone());
+    }
+
+    public function testToggleTaskButton(): void
+    {
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $client->loginUser($user);
+
+        $crawler = $client->request('GET', "/tasks");
+        $this->assertRouteSame('task_list');
+
+        //        CREER UNE TASK via fixtures
+        $this->assertTrue($crawler->filter('html:contains("Marquer comme faite")')->count() > 0);
+
+        $form = $crawler->selectButton('Marquer comme faite')->form();
+        $client->submit($form);
+
+        $this->assertRouteSame('task_toggle');
+    }
+
+    public function testRemoveTaskAction(): void
+    {
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $taskRepository = static::$container->get(TaskRepository::class);
+
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $client->loginUser($user);
+
+        $task = $taskRepository->findOneBy(['title' => 'test']);
+        $taskId = $task->getId();
+
+        $client->request('GET', "/tasks/$taskId/delete");
+
+        $this->assertRouteSame('task_delete');
+        $this->assertEmpty($taskRepository->findOneById($taskId));
+    }
+
+    public function testFlashAfterRemoveTask(): void
+    {
+        $client = static::createClient();
+
+        $userRepository = static::$container->get(UserRepository::class);
+
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $client->loginUser($user);
+
+        $crawler = $client->request('GET', "/tasks");
+
+        $form = $crawler->selectButton('Supprimer')->form();
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
+        $this->assertRouteSame('task_list');
+
+        $this->assertTrue($crawler->filter('.alert-success')->count() > 0);
     }
 }

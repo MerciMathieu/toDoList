@@ -25,6 +25,7 @@ class UserTestData extends Fixture
         $user->setUsername('test');
         $user->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('test', null));
         $user->setEmail('test@test.fr');
+
         $manager->persist($user);
         $manager->flush();
     }
