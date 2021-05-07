@@ -47,6 +47,7 @@
     "require-dev": {
         "ext-pdo": "*",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "liip/test-fixtures-bundle": "^1.11",
         "phpunit/phpunit": "*",
         "symfony/browser-kit": "5.2.*",
         "symfony/css-selector": "5.2.*",
