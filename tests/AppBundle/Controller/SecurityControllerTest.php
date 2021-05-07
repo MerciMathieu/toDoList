@@ -3,10 +3,13 @@
 namespace App\Tests\AppBundle\Controller;
 
 use App\Repository\UserRepository;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
+    use FixturesTrait;
+
     public function testLoginPageIsUp(): void
     {
         $client = static::createClient();
@@ -75,6 +78,8 @@ class SecurityControllerTest extends WebTestCase
     public function testLogoutAction(): void
     {
         $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('test@test.fr');

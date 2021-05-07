@@ -15,6 +15,8 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,8 @@ class UserController extends AbstractController
     /**
      * @Route("/users", name="user_list")
      */
-    public function listAction(): Response
+    public function listAction(UserRepository $userRepository): Response
     {
-        $userRepository = $this->getDoctrine()->getRepository('App:User');
         $users = $userRepository->findAll();
 
         return $this->render('user/list.html.twig', ['users' => $users]);
@@ -52,17 +52,17 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request): Response
+    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->getData()->getPassword();
+            $user->setPassword($passwordEncoder->encodePassword($user, $password));
 
-            $this->getDoctrine()->getManager()->flush();
+            $manager->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 

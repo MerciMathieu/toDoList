@@ -3,10 +3,13 @@
 namespace App\Tests\AppBundle\Controller;
 
 use App\Repository\UserRepository;
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
+    use FixturesTrait;
+
     public function testHomepageRedirectToLoginForAnonymous(): void
     {
         $client = static::createClient();
@@ -23,6 +26,8 @@ class DefaultControllerTest extends WebTestCase
     public function testHomepageIsUpWhenLoggedIn(): void
     {
         $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('test@test.fr');
