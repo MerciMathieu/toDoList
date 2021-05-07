@@ -21,4 +21,24 @@ class TaskTest extends TestCase
         $task->toggle(false);
         $this->assertFalse($task->getIsDone());
     }
+
+    public function testSetIsDone()
+    {
+        $task = new Task();
+        $task->setIsDone(true);
+        $this->assertTrue($task->getIsDone());
+    }
+
+    public function testGetCreatedAt()
+    {
+        $task = new Task();
+        $this->assertNotNull($task->getCreatedAt());
+    }
+
+    public function testSetCreatedAt()
+    {
+        $task = new Task();
+        $task->setCreatedAt(new \DateTime());
+        $this->assertNotNull($task->getCreatedAt());
+    }
 }
