@@ -20,6 +20,7 @@ class TaskControllerTest extends WebTestCase
         $client->loginUser($user);
 
         $client->request('GET', '/tasks');
+
         $this->assertRouteSame('task_list');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
@@ -31,6 +32,9 @@ class TaskControllerTest extends WebTestCase
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
+
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures();
 
         $crawler = $client->request('GET', '/tasks');
 
@@ -45,6 +49,9 @@ class TaskControllerTest extends WebTestCase
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
 
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $crawler = $client->request('GET', '/tasks');
 
         $this->assertTrue($crawler->filter('.thumbnail')->count() > 0);
@@ -56,9 +63,14 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $taskRepository = static::$container->get(TaskRepository::class);
         $userRepository = static::$container->get(UserRepository::class);
+
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
+
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures();
 
         $crawler = $client->request('GET', '/tasks/create');
 
@@ -70,6 +82,7 @@ class TaskControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertRouteSame('task_list');
+        $this->assertNotNull($taskRepository->findOneBy(['title' => 'test']));
     }
 
     public function testEditTaskFormGetData(): void
@@ -82,17 +95,20 @@ class TaskControllerTest extends WebTestCase
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
 
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
 
         $crawler = $client->request('GET', "/tasks/$taskId/edit");
-
         $form = $crawler->selectButton('Modifier')->form();
+
         $this->assertNotEmpty($form->getValues()['task[title]']);
         $this->assertNotEmpty($form->getValues()['task[content]']);
     }
 
-    public function testSubmitEditTaskFormG(): void
+    public function testSubmitEditTaskForm(): void
     {
         $client = static::createClient();
 
@@ -101,6 +117,9 @@ class TaskControllerTest extends WebTestCase
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
+
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
@@ -111,9 +130,10 @@ class TaskControllerTest extends WebTestCase
 
         $form = $crawler->selectButton('Modifier')->form();
         $client->submit($form);
-        $client->followRedirect();
+        $crawler = $client->followRedirect();
 
         $this->assertRouteSame('task_list');
+        $this->assertTrue($crawler->filter('.alert-success')->count() > 0);
     }
 
     public function testDataChangeAfterEdit(): void
@@ -126,20 +146,21 @@ class TaskControllerTest extends WebTestCase
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
 
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
 
         $crawler = $client->request('GET', "/tasks/$taskId/edit");
-
         $form = $crawler->selectButton('Modifier')->form();
-
         $form->setValues([
             'task[title]' => 'updated title',
             'task[content]' => 'updated content']);
-
         $client->submit($form);
 
         $updatedTask = $taskRepository->findOneById($taskId);
+
         $this->assertSame('updated title', $updatedTask->getTitle());
         $this->assertSame('updated content', $updatedTask->getContent());
     }
@@ -154,7 +175,9 @@ class TaskControllerTest extends WebTestCase
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
 
-        //        CREER UNE TASK via fixtures
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
 
@@ -173,10 +196,12 @@ class TaskControllerTest extends WebTestCase
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
 
-        $crawler = $client->request('GET', "/tasks");
-        $this->assertRouteSame('task_list');
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
-        //        CREER UNE TASK via fixtures
+        $crawler = $client->request('GET', "/tasks");
+
+        $this->assertRouteSame('task_list');
         $this->assertTrue($crawler->filter('html:contains("Marquer comme faite")')->count() > 0);
 
         $form = $crawler->selectButton('Marquer comme faite')->form();
@@ -192,10 +217,11 @@ class TaskControllerTest extends WebTestCase
         $userRepository = static::$container->get(UserRepository::class);
         $taskRepository = static::$container->get(TaskRepository::class);
 
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
-
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
+
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
@@ -214,6 +240,9 @@ class TaskControllerTest extends WebTestCase
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
+
+        $this->setExcludedDoctrineTables(array('user'));
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $crawler = $client->request('GET', "/tasks");
 
