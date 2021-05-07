@@ -250,8 +250,8 @@ class TaskControllerTest extends WebTestCase
         $client->submit($form);
 
         $crawler = $client->followRedirect();
-        $this->assertRouteSame('task_list');
 
-        $this->assertTrue($crawler->filter('.alert-success')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("La tâche a bien été supprimée.")')->count() > 0);
+        $this->assertRouteSame('task_list');
     }
 }
