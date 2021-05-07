@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 /**
  * @codeCoverageIgnore
  */
-class UserTestData extends Fixture
+class CreateUserTestData extends Fixture
 {
     private $encoderFactory;
 
