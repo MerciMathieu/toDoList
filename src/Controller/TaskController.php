@@ -38,7 +38,7 @@ class TaskController extends AbstractController
             $manager->persist($task);
             $manager->flush();
 
-            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
+            $this->addFlash('success', 'La tâche a bien été ajoutée.');
 
             return $this->redirectToRoute('task_list');
         }
@@ -52,13 +52,12 @@ class TaskController extends AbstractController
     public function editAction(Task $task, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(TaskType::class, $task);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
 
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
+            $this->addFlash('success', sprintf('La tâche a bien été modifiée.', $task->getTitle()));
 
             return $this->redirectToRoute('task_list');
         }
