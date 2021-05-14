@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,11 +47,10 @@ class Task
      */
     private $author;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct()
     {
         $this->createdAt = new \Datetime();
         $this->isDone = false;
-        $this->author = $userRepository->findOneBy(['username' => 'Anonymous']);
     }
 
     public function getId(): int
@@ -65,9 +63,9 @@ class Task
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->createdAt = $createdAt;
+        return $this->createdAt = $createdAt;
     }
 
     public function getTitle(): string
@@ -75,7 +73,7 @@ class Task
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -85,9 +83,9 @@ class Task
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $content)
     {
-        $this->content = $content;
+        return $this->content = $content;
     }
 
     public function isDone(): bool
@@ -105,7 +103,7 @@ class Task
         return $this->isDone;
     }
 
-    public function setIsDone(bool $isDone): self
+    public function setIsDone(bool $isDone)
     {
         $this->isDone = $isDone;
 
@@ -117,10 +115,8 @@ class Task
         return $this->author;
     }
 
-    public function setAuthor(User $author): self
+    public function setAuthor(User $author)
     {
-        $this->author = $author;
-
-        return $this;
+        return $this->author = $author;
     }
 }

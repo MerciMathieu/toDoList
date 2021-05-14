@@ -31,8 +31,11 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('test@test.fr');
+
         $client->loginUser($user);
 
         $this->setExcludedDoctrineTables(array('user'));
@@ -47,12 +50,11 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $crawler = $client->request('GET', '/tasks');
 
@@ -64,6 +66,8 @@ class TaskControllerTest extends WebTestCase
     public function testCreateTaskForm(): void
     {
         $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $taskRepository = static::$container->get(TaskRepository::class);
         $userRepository = static::$container->get(UserRepository::class);
@@ -91,14 +95,13 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $taskRepository = static::$container->get(TaskRepository::class);
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
@@ -114,14 +117,13 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $taskRepository = static::$container->get(TaskRepository::class);
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
@@ -142,14 +144,13 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $taskRepository = static::$container->get(TaskRepository::class);
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
@@ -171,14 +172,13 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $taskRepository = static::$container->get(TaskRepository::class);
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
@@ -194,12 +194,11 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $crawler = $client->request('GET', "/tasks");
 
@@ -216,14 +215,13 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
         $taskRepository = static::$container->get(TaskRepository::class);
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $task = $taskRepository->findOneBy(['title' => 'test']);
         $taskId = $task->getId();
@@ -238,13 +236,12 @@ class TaskControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
         $userRepository = static::$container->get(UserRepository::class);
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
-
-        $this->setExcludedDoctrineTables(array('user'));
-        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $crawler = $client->request('GET', "/tasks");
 

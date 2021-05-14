@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
  */
 class CreateUserTestData extends Fixture
 {
+    public const TEST_USER_REFERENCE = 'test-user';
     private $encoderFactory;
 
     public function __construct(EncoderFactoryInterface $encoderFactory)
@@ -27,6 +28,10 @@ class CreateUserTestData extends Fixture
         $user->setEmail('test@test.fr');
 
         $manager->persist($user);
+        $this->addReference(self::TEST_USER_REFERENCE, $user);
+
         $manager->flush();
     }
+
+
 }

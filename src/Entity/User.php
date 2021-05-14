@@ -62,9 +62,9 @@ class User implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $username)
     {
-        $this->username = $username;
+        return $this->username = $username;
     }
 
     public function getSalt()
@@ -77,9 +77,9 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
-        $this->password = $password;
+        return $this->password = $password;
     }
 
     public function getEmail(): string
@@ -87,9 +87,9 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email)
     {
-        $this->email = $email;
+        return $this->email = $email;
     }
 
     public function getRoles(): array
