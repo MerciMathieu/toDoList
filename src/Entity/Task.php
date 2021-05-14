@@ -52,9 +52,10 @@ class Task
     {
         $this->createdAt = new \Datetime();
         $this->isDone = false;
+        $this->author = $userRepository->findOneBy(['username' => 'Anonymous']);
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
