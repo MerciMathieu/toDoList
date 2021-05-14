@@ -14,7 +14,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @UniqueEntity("email")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
