@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table
  * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 class Task
 {
@@ -48,6 +47,12 @@ class Task
      * @ORM\JoinColumn(nullable=true)
      */
     private $author;
+
+    public function __construct()
+    {
+        $this->createdAt = new \Datetime();
+        $this->isDone = false;
+    }
 
     public function getId(): int
     {
