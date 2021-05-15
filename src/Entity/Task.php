@@ -43,7 +43,7 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 
@@ -115,7 +115,7 @@ class Task
         return $this->author;
     }
 
-    public function setAuthor(User $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 
