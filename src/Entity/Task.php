@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table
- * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
  */
 class Task
 {
@@ -48,7 +46,7 @@ class Task
      */
     private $author;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct()
     {
         $this->createdAt = new \Datetime();
         $this->isDone = false;
@@ -109,7 +107,7 @@ class Task
         return $this->isDone = $isDone;
     }
 
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
