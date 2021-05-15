@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -43,7 +44,7 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 
@@ -75,7 +76,7 @@ class Task
 
     public function setTitle(string $title)
     {
-        $this->title = $title;
+        return $this->title = $title;
     }
 
     public function getContent(): string
@@ -105,9 +106,7 @@ class Task
 
     public function setIsDone(bool $isDone)
     {
-        $this->isDone = $isDone;
-
-        return $this;
+        return $this->isDone = $isDone;
     }
 
     public function getAuthor(): ?User
