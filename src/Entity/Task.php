@@ -54,7 +54,7 @@ class Task
         $this->isDone = false;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -114,7 +114,7 @@ class Task
         return $this->author;
     }
 
-    public function setAuthor(User $author)
+    public function setAuthor(?User $author)
     {
         return $this->author = $author;
     }

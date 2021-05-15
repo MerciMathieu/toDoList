@@ -1,0 +1,7 @@
+language: php
+php:
+    - '8.0'
+
+script:
+    - composer install
+    - php bin/phpunit tests/AppBundle/
