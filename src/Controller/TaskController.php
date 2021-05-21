@@ -86,6 +86,12 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task, EntityManagerInterface $manager): Response
     {
+        if ($task->getAuthor()) {
+            $this->denyAccessUnlessGranted('remove', $task);
+        } else {
+            $this->denyAccessUnlessGranted('remove_task_with_anonymous_author', $task);
+        }
+
         $manager->remove($task);
         $manager->flush();
 
