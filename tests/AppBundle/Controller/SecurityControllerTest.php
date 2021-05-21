@@ -95,4 +95,32 @@ class SecurityControllerTest extends WebTestCase
         $this->assertRouteSame('login');
         $this->assertTrue($crawler->filter('html:contains("Se connecter")')->count() > 0);
     }
+
+    public function testForbiddenAccessIfNotAdmin(): void
+    {
+        $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $client->loginUser($user);
+        $client->request('GET', '/users');
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+    }
+
+    public function testGrantedAccessIfAdmin(): void
+    {
+        $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $user = $userRepository->findOneByEmail('admin@test.fr');
+        $client->loginUser($user);
+        $client->request('GET', '/users');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 }
