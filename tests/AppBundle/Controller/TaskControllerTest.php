@@ -253,4 +253,20 @@ class TaskControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("La tâche a bien été supprimée.")')->count() > 0);
         $this->assertRouteSame('task_list');
     }
+
+    public function testTaskAuthor(): void
+    {
+        $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
+        $userRepository = static::$container->get(UserRepository::class);
+
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $client->loginUser($user);
+
+        $crawler = $client->request('GET', "/tasks");
+
+        $this->assertTrue($crawler->filter('html:contains("Créee par test")')->count() > 0);
+    }
 }
