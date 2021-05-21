@@ -8,6 +8,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 
+/**
+ * @codeCoverageIgnore
+ */
 class TaskVoter extends Voter
 {
     const REMOVE = 'remove';
