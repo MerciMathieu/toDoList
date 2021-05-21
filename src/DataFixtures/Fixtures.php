@@ -30,11 +30,18 @@ class Fixtures extends Fixture implements FixtureGroupInterface
     {
         $adminUser = new User();
         $adminUser->setUsername('Admin');
-        $adminUser->setEmail('admin@toto.list');
+        $adminUser->setEmail('admin@todo.list');
         $adminUser->setPassword($this->encoder->encodePassword($adminUser, 'admin'));
         $adminUser->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($adminUser);
+
+        $regularUser = new User();
+        $regularUser->setUsername('user');
+        $regularUser->setEmail('user@toto.list');
+        $regularUser->setPassword($this->encoder->encodePassword($regularUser, 'user'));
+
+        $manager->persist($regularUser);
 
         for ($i=0; $i < 5; $i++) {
             $task = new Task();
