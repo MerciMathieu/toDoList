@@ -16,6 +16,7 @@
                         <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
                         <p>{{ task.content }}</p>
                     </div>
+                    <p class="pull-right"><small>Créee par <i>{% if task.author %}{{ task.author.username }}{% else %}Anonymous{% endif %}</i> le {{ task.createdAt|date('j/m/Y à H:i:s') }}</small></p>
                     <div>
                         <form action="{{ path('task_toggle', {'id' : task.id }) }}">
                             <button class="btn btn-success btn-sm pull-right">
