@@ -58,7 +58,7 @@ class UserTest extends TestCase
         $user->setUsername('test');
         $user->setPassword('test');
         $user->setEmail('test@test.fr');
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setRole('ROLE_ADMIN');
 
         $this->assertContains('ROLE_ADMIN', $user->getRoles());
     }

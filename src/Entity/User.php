@@ -48,13 +48,14 @@ class User implements UserInterface
     private $tasks;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="array")
      */
     private $roles;
 
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): int
@@ -97,7 +98,7 @@ class User implements UserInterface
         return $this->email = $email;
     }
 
-    public function getRoles(): string
+    public function getRoles(): array
     {
         return $this->roles;
     }
@@ -136,8 +137,13 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setRoles(string $roles)
+    public function setRole(string $role)
     {
-        return $this->roles = $roles;
+        return $this->roles = [$role];
+    }
+
+    public function getRole(): string
+    {
+        return $this->roles[0];
     }
 }

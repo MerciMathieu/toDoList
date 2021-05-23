@@ -25,7 +25,7 @@ class CreateAdminUserTestData extends Fixture
         $user->setUsername('admin');
         $user->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('admin', null));
         $user->setEmail('admin@test.fr');
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setRole('ROLE_ADMIN');
 
         $manager->persist($user);
 

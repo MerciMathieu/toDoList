@@ -32,7 +32,7 @@ class Fixtures extends Fixture implements FixtureGroupInterface
         $adminUser->setUsername('Admin');
         $adminUser->setEmail('admin@todo.list');
         $adminUser->setPassword($this->encoder->encodePassword($adminUser, 'admin'));
-        $adminUser->setRoles('ROLE_ADMIN');
+        $adminUser->setRole('ROLE_ADMIN');
 
         $manager->persist($adminUser);
 
