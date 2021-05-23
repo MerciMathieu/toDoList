@@ -14,7 +14,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -30,7 +30,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -48,7 +48,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -64,7 +64,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -80,7 +80,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -107,7 +107,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -123,7 +123,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -140,7 +140,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');
@@ -161,7 +161,7 @@ class UserControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $user = $userRepository->findOneByEmail('admin@test.fr');

@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 class CreateUserTestData extends Fixture
 {
     public const TEST_USER_REFERENCE = 'test-user';
+
     private $encoderFactory;
 
     public function __construct(EncoderFactoryInterface $encoderFactory)
@@ -32,8 +33,15 @@ class CreateUserTestData extends Fixture
         $user2->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('test', null));
         $user2->setEmail('test2@test.fr');
 
+        $adminUser = new User();
+        $adminUser->setUsername('admin');
+        $adminUser->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('admin', null));
+        $adminUser->setEmail('admin@test.fr');
+        $adminUser->setRole('ROLE_ADMIN');
+
         $manager->persist($user);
         $manager->persist($user2);
+        $manager->persist($adminUser);
 
         $this->addReference(self::TEST_USER_REFERENCE, $user);
 

@@ -239,14 +239,15 @@ class TaskControllerTest extends WebTestCase
         $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
+        $taskRepository = static::$container->get(TaskRepository::class);
 
         $user = $userRepository->findOneByEmail('test@test.fr');
         $client->loginUser($user);
 
-        $crawler = $client->request('GET', "/tasks");
+        $task = $taskRepository->findOneBy(['title' => 'test']);
+        $taskId = $task->getId();
 
-        $form = $crawler->selectButton('Supprimer')->form();
-        $client->submit($form);
+        $client->request('GET', "/tasks/$taskId/delete");
 
         $crawler = $client->followRedirect();
 
@@ -302,7 +303,6 @@ class TaskControllerTest extends WebTestCase
         $client = static::createClient();
 
         $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
-        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
 
         $userRepository = static::$container->get(UserRepository::class);
         $taskRepository = static::$container->get(TaskRepository::class);
@@ -315,6 +315,7 @@ class TaskControllerTest extends WebTestCase
         $taskId = $task->getId();
 
         $client->request('GET', "/tasks/$taskId/delete");
+        $client->followRedirect();
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
