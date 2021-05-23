@@ -253,4 +253,69 @@ class TaskControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("La tâche a bien été supprimée.")')->count() > 0);
         $this->assertRouteSame('task_list');
     }
+
+    public function testRemoveFailIfNotTaskAuthor(): void
+    {
+        $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $taskRepository = static::$container->get(TaskRepository::class);
+
+        $user = $userRepository->findOneByEmail('test@test.fr');
+        $user2 = $userRepository->findOneByEmail('test2@test.fr');
+
+        $client->loginUser($user2);
+
+        $task = $taskRepository->findOneBy(['author' => $user]);
+        $taskId = $task->getId();
+
+        $client->request('GET', "/tasks/$taskId/delete");
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+    }
+
+    public function testRemoveTaskWithAnonymousAuthorFailIfNotAdmin(): void
+    {
+        $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $taskRepository = static::$container->get(TaskRepository::class);
+
+        $user = $userRepository->findOneByEmail('test@test.fr');
+
+        $client->loginUser($user);
+
+        $task = $taskRepository->findOneBy(['author' => null]);
+        $taskId = $task->getId();
+
+        $client->request('GET', "/tasks/$taskId/delete");
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+    }
+
+    public function testRemoveTaskWithAnonymousAuthorSuccessIfAdmin(): void
+    {
+        $client = static::createClient();
+
+        $this->loadFixtures(['App\DataFixtures\CreateTaskTestData']);
+        $this->loadFixtures(['App\DataFixtures\CreateAdminUserTestData']);
+
+        $userRepository = static::$container->get(UserRepository::class);
+        $taskRepository = static::$container->get(TaskRepository::class);
+
+        $admin = $userRepository->findOneByEmail('admin@test.fr');
+
+        $client->loginUser($admin);
+
+        $task = $taskRepository->findOneBy(['author' => null]);
+        $taskId = $task->getId();
+
+        $client->request('GET', "/tasks/$taskId/delete");
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
 }

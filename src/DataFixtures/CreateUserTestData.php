@@ -27,11 +27,16 @@ class CreateUserTestData extends Fixture
         $user->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('test', null));
         $user->setEmail('test@test.fr');
 
+        $user2 = new User();
+        $user2->setUsername('test2');
+        $user2->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('test', null));
+        $user2->setEmail('test2@test.fr');
+
         $manager->persist($user);
+        $manager->persist($user2);
+
         $this->addReference(self::TEST_USER_REFERENCE, $user);
 
         $manager->flush();
     }
-
-
 }
