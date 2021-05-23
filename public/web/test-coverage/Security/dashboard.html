@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for /home/mde/www/todolist/src/Repository</title>
+  <title>Dashboard for /home/mde/www/todolist/src/Security</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">/home/mde/www/todolist/src</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Repository</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Security</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -58,6 +58,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="TaskVoter.php.html#11">App\Security\TaskVoter</a></td><td class="text-right">82%</td></tr>
 
        </tbody>
       </table>
@@ -74,6 +75,7 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="TaskVoter.php.html#11">App\Security\TaskVoter</a></td><td class="text-right">9</td></tr>
 
        </tbody>
       </table>
@@ -111,6 +113,8 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="TaskVoter.php.html#35"><abbr title="App\Security\TaskVoter::voteOnAttribute">voteOnAttribute</abbr></a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="TaskVoter.php.html#22"><abbr title="App\Security\TaskVoter::supports">supports</abbr></a></td><td class="text-right">80%</td></tr>
 
        </tbody>
       </table>
@@ -127,6 +131,8 @@
         </tr>
        </thead>
        <tbody>
+       <tr><td><a href="TaskVoter.php.html#35"><abbr title="App\Security\TaskVoter::voteOnAttribute">voteOnAttribute</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="TaskVoter.php.html#22"><abbr title="App\Security\TaskVoter::supports">supports</abbr></a></td><td class="text-right">3</td></tr>
 
        </tbody>
       </table>
@@ -155,7 +161,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#classCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,2], "Class Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,1,0,0], "Class Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -173,7 +179,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,2], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,1,1,0,2], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -223,7 +229,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"TaskRepository.php.html#15\">App\\Repository\\TaskRepository<\/a>"],[100,1,"<a href=\"UserRepository.php.html#15\">App\\Repository\\UserRepository<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[82.35294117647058,9,"<a href=\"TaskVoter.php.html#11\">App\\Security\\TaskVoter<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -247,7 +253,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"TaskRepository.php.html#17\">App\\Repository\\TaskRepository::__construct<\/a>"],[100,1,"<a href=\"UserRepository.php.html#17\">App\\Repository\\UserRepository::__construct<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"TaskVoter.php.html#17\">App\\Security\\TaskVoter::__construct<\/a>"],[80,3,"<a href=\"TaskVoter.php.html#22\">App\\Security\\TaskVoter::supports<\/a>"],[71.42857142857143,3,"<a href=\"TaskVoter.php.html#35\">App\\Security\\TaskVoter::voteOnAttribute<\/a>"],[100,2,"<a href=\"TaskVoter.php.html#53\">App\\Security\\TaskVoter::canRemove<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
