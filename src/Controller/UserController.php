@@ -17,7 +17,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users", name="user_list")
      */
-    public function listAction(UserRepository $userRepository): Response
+    public function list(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
 
@@ -27,7 +27,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function create(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -52,7 +52,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager): Response
+    public function edit(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
