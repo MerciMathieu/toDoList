@@ -14,7 +14,6 @@ use Symfony\Component\Security\Core\Security;
 class TaskVoter extends Voter
 {
     const REMOVE = 'remove';
-    const REMOVE_TASK_WITH_ANONYMOUS_AUTHOR = 'remove_task_with_anonymous_author';
 
     private $security;
 
@@ -25,7 +24,7 @@ class TaskVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        if (!in_array($attribute, [self::REMOVE, self::REMOVE_TASK_WITH_ANONYMOUS_AUTHOR])) {
+        if (!in_array($attribute, [self::REMOVE])) {
             return false;
         }
 
@@ -49,9 +48,6 @@ class TaskVoter extends Voter
         switch ($attribute) {
             case self::REMOVE:
                 return $this->canRemove($task, $user);
-
-            case self::REMOVE_TASK_WITH_ANONYMOUS_AUTHOR:
-                return $this->canRemoveTaskWithoutAuthor();
         }
 
         throw new \LogicException('This code should not be reached!');
@@ -59,15 +55,10 @@ class TaskVoter extends Voter
 
     private function canRemove(Task $task, User $user): bool
     {
-        return $user === $task->getAuthor();
-    }
-
-    private function canRemoveTaskWithoutAuthor(): bool
-    {
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
 
-        return false;
+        return $user === $task->getAuthor();
     }
 }
