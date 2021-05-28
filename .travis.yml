@@ -6,13 +6,15 @@ services:
     - docker
     - mysql
 
+before_install:
+    - docker-compose up -d
 install:
     - composer install
 
 before_script:
     - cp .env.travis .env
-    - bin/console doctrine:database:create
-    - bin/console doctrine:schema:create
+    - bin/console doctrine:database:create --env=test
+    - bin/console doctrine:schema:create --env=test
 
 script:
     - php bin/phpunit tests/AppBundle/
