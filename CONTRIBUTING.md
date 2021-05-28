@@ -137,6 +137,10 @@ TaskVoter for exemple, allow us to check user before let him access or delete so
 
 Voter documentation: https://symfony.com/doc/current/security/voters.html
 
+## Authentication
+
+See [Authentication module documention](AUTHENTICATION.md)
+
 ## Templating
 
 You can create views in /templates folder.
