@@ -2,6 +2,17 @@ language: php
 php:
     - '8.0'
 
-script:
+services:
+    - docker
+    - mysql
+
+install:
     - composer install
+
+before_script:
+    - cp .env.travis .env
+    - bin/console doctrine:database:create
+    - bin/console doctrine:schema:create
+
+script:
     - php bin/phpunit tests/AppBundle/
