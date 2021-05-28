@@ -38,6 +38,9 @@
 
 ## Test your application with PHPunit
 
+You have to create a test environement database.
+https://symfony.com/doc/current/the-fast-track/en/17-tests.html#working-with-a-test-database
+
 In .env, change "ENV=dev" to "ENV=test"
 
     php bin/phpunit tests/AppBundle
@@ -101,6 +104,10 @@ To stop it (each time you finish to work)
 
     docker-compose stop
 
+### Create test database
+
+Documentation: 
+https://symfony.com/doc/current/the-fast-track/en/17-tests.html#working-with-a-test-database
 
 ### Doctrine ORM
 
