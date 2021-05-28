@@ -79,6 +79,8 @@ ADMIN user credentials:
 
 ## Tests
 
+In .env, change "ENV=dev" to "ENV=test"
+
     php bin/phpunit tests/AppBundle
 
 or, with coverage informations,
@@ -87,4 +89,4 @@ or, with coverage informations,
 
 
 
-**Enjoy** *
+**Enjoy**
