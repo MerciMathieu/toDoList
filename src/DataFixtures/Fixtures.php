@@ -29,7 +29,7 @@ class Fixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager)
     {
         $adminUser = new User();
-        $adminUser->setUsername('Admin');
+        $adminUser->setUsername('admin');
         $adminUser->setEmail('admin@todo.list');
         $adminUser->setPassword($this->encoder->encodePassword($adminUser, 'admin'));
         $adminUser->setRole('ROLE_ADMIN');
