@@ -9,6 +9,9 @@
 *   composer
 *   php ^7.2||^8.0
 *   Symfony CLI
+*   docker
+*   docker-compose
+*   GIT
 
 ## Install
 
@@ -74,4 +77,14 @@ ADMIN user credentials:
 * login: admin
 * password: admin
 
-**Enjoy**
+## Tests
+
+    php bin/phpunit tests/AppBundle
+
+or, with coverage informations,
+
+    php bin/phpunit --coverage-html web/test-coverage
+
+
+
+**Enjoy** *
