@@ -18,15 +18,6 @@ class SecurityControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testCreateUserButtonOnLoginPage(): void
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/login');
-        $client->clickLink("Créer un utilisateur");
-        $this->assertRouteSame('user_create');
-    }
-
     public function testSubmitButtonOnLoginPage(): void
     {
         $client = static::createClient();
