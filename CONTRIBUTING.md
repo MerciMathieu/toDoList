@@ -1,10 +1,36 @@
-#Contributing.md
+#Contribution
 
 ## During developements
 
+### Coding Style
+
+https://www.php-fig.org/psr/psr-12/
+
+Developements must respect coding php 7 minimum standards (psr12 & psr4).
+
+It must also respect both quality controls setted up.
+
+#### Quality code (Codacy  & Code climate)
+Check the Codacy and Code Climate dashboard before contributing,
+[Quality audit](docs/audit_qualité.pdf)
+
+you must check that you don't create code errors after developments done.
+
+https://app.codacy.com/gh/MerciMathieu/toDoList/dashboard?branch=master
+https://codeclimate.com/github/MerciMathieu/toDoList
+
+
+#### Performance (Blackfire)
+
+Check the blackfire dashboard before contributing,
+[Performances audit](docs/audit_performances.pdf)
+
+Performances should not decrease after your developments, 
+please check measures before and after.
+
 ### Php cs fixer
 
-Will help you to your php respects standards (psr-12, psr-4)
+Will help you to your php respects standards
 
     php php-cs-fixer.phar fix .
 
