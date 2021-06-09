@@ -1,0 +1,5 @@
+recommendations:
+    php.symfony.avoid_dot_env_parsing:
+        enabled: false
+    php.php_preloading:
+        enabled: false
