@@ -3,8 +3,6 @@
 [![Build Status](https://travis-ci.com/MerciMathieu/toDoList.svg?branch=master)](https://travis-ci.com/MerciMathieu/toDoList)
 
 # <p>Projet 8 OpenClassrooms - Amérliorez une application existante Todo&Co - PHP / Symfony</p>
-
-
 ## Requirements
 *   composer
 *   php ^7.2||^8.0
@@ -14,7 +12,6 @@
 *   GIT
 
 ## Install
-
 ### Clone
 
     git clone https://github.com/MerciMathieu/toDoList.git
@@ -25,7 +22,6 @@
 
 ### Database
 #### Enter your connection's informations
-
 *   Enter your informations in the **/.env**  file  
     Following lines will have to be replaced with your own informations:
 
@@ -43,17 +39,14 @@
 will create the tables and fields
 
 ## Usage
-
 ### Load initial data
 
     symfony console doctrine:fixtures:load --group=devGroup
 
 ### Change ENV to "production"
-
 replace "dev" by "prod" in .env file
 
 ### Start using the website
-
 start symfony web server
 
     symfony serve -d
@@ -71,14 +64,12 @@ and stop it, when you stop to work on it, with
     docker-compose stop
 
 #### Admin account
-
 Several users has been created when loading fixtures.
 ADMIN user credentials:
 * login: admin
 * password: admin
 
 ## Tests
-
 In .env, change "ENV=dev" to "ENV=test"
 
     php bin/phpunit tests/AppBundle
@@ -86,7 +77,5 @@ In .env, change "ENV=dev" to "ENV=test"
 or, with coverage informations,
 
     php bin/phpunit --coverage-html web/test-coverage
-
-
 
 **Enjoy**
