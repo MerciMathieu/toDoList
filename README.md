@@ -2,7 +2,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c70d6d0f3dfa4d0b80f578df14394ff8)](https://www.codacy.com/gh/MerciMathieu/toDoList/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MerciMathieu/toDoList&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.com/MerciMathieu/toDoList.svg?branch=master)](https://travis-ci.com/MerciMathieu/toDoList)
 
-# <p>Projet 8 OpenClassrooms - Amérliorez une application existante Todo&Co - PHP / Symfony</p>
+# <p>Projet 8 OpenClassrooms - Améliorez une application existante Todo&Co - PHP / Symfony</p>
 ## Requirements
 *   composer
 *   php ^7.2||^8.0
