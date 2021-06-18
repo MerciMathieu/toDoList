@@ -1,5 +1,4 @@
 <a href="https://codeclimate.com/github/MerciMathieu/toDoList/maintainability"><img src="https://api.codeclimate.com/v1/badges/cf196787cd32d09159a9/maintainability" /></a>
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c70d6d0f3dfa4d0b80f578df14394ff8)](https://www.codacy.com/gh/MerciMathieu/toDoList/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MerciMathieu/toDoList&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.com/MerciMathieu/toDoList.svg?branch=master)](https://travis-ci.com/MerciMathieu/toDoList)
 
 # <p>Projet 8 OpenClassrooms - Améliorez une application existante Todo&Co - PHP / Symfony</p>
