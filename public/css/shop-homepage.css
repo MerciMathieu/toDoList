@@ -55,4 +55,5 @@ footer {
 
 .btn-group-sm>.btn, .btn-sm {
     font-size: unset;
+    margin-bottom: 50px;
 }
