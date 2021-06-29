@@ -73,6 +73,8 @@ class TaskController extends AbstractController
      */
     public function toggleTask(Task $task, EntityManagerInterface $manager): Response
     {
+        $this->denyAccessUnlessGranted('toggle', $task);
+
         $task->toggle(!$task->isDone());
         $manager->flush();
 
