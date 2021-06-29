@@ -52,3 +52,7 @@ body {
 footer {
     margin: 50px 0;
 }
+
+.btn-group-sm>.btn, .btn-sm {
+    font-size: unset;
+}
