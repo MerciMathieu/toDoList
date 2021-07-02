@@ -333,6 +333,6 @@ class TaskControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', "/tasks");
 
-        $this->assertTrue($crawler->filter('html:contains("Créee par test")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Créée par test")')->count() > 0);
     }
 }
