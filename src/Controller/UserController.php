@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -27,7 +28,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function create(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function create(Request $request, EntityManagerInterface $manager, NativePasswordHasher $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -36,7 +37,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->getData()->getPassword();
-            $user->setPassword($passwordEncoder->encodePassword($user, $password));
+            $user->setPassword($passwordEncoder->hash($password));
 
             $manager->persist($user);
             $manager->flush();
@@ -52,7 +53,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function edit(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $manager): Response
+    public function edit(User $user, Request $request, NativePasswordHasher $passwordEncoder, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(UserType::class, $user);
 
@@ -60,7 +61,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->getData()->getPassword();
-            $user->setPassword($passwordEncoder->encodePassword($user, $password));
+            $user->setPassword($passwordEncoder->hash($password));
 
             $manager->flush();
 
