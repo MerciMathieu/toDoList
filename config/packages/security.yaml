@@ -1,5 +1,5 @@
 security:
-    password_hashers:
+    encoders:
         App\Entity\User:
             algorithm: bcrypt
 

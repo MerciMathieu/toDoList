@@ -7,7 +7,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @codeCoverageIgnore
@@ -16,7 +16,7 @@ class Fixtures extends Fixture implements FixtureGroupInterface
 {
     private $encoder;
 
-    public function __construct(PasswordHasherFactoryInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
@@ -31,7 +31,7 @@ class Fixtures extends Fixture implements FixtureGroupInterface
         $adminUser = new User();
         $adminUser->setUsername('admin');
         $adminUser->setEmail('admin@todo.list');
-        $adminUser->setPassword($this->encoder->getPasswordHasher(User::class)->hash('admin'));
+        $adminUser->setPassword($this->encoder->encodePassword($adminUser, 'admin'));
         $adminUser->setRole('ROLE_ADMIN');
 
         $manager->persist($adminUser);
@@ -39,7 +39,7 @@ class Fixtures extends Fixture implements FixtureGroupInterface
         $regularUser = new User();
         $regularUser->setUsername('user');
         $regularUser->setEmail('user@toto.list');
-        $regularUser->setPassword($this->encoder->getPasswordHasher(User::class)->hash('user'));
+        $regularUser->setPassword($this->encoder->encodePassword($regularUser, 'user'));
 
         $manager->persist($regularUser);
 

@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
  * @codeCoverageIgnore
@@ -16,7 +16,7 @@ class CreateUserTestData extends Fixture
 
     private $encoderFactory;
 
-    public function __construct(PasswordHasherFactoryInterface $encoderFactory)
+    public function __construct(EncoderFactoryInterface $encoderFactory)
     {
         $this->encoderFactory = $encoderFactory;
     }
@@ -25,17 +25,17 @@ class CreateUserTestData extends Fixture
     {
         $user = new User();
         $user->setUsername('test');
-        $user->setPassword($this->encoderFactory->getPasswordHasher(User::class)->hash('test'));
+        $user->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('test', null));
         $user->setEmail('test@test.fr');
 
         $user2 = new User();
         $user2->setUsername('test2');
-        $user2->setPassword($this->encoderFactory->getPasswordHasher(User::class)->hash('test'));
+        $user2->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('test', null));
         $user2->setEmail('test2@test.fr');
 
         $adminUser = new User();
         $adminUser->setUsername('admin');
-        $adminUser->setPassword($this->encoderFactory->getPasswordHasher(User::class)->hash('admin'));
+        $adminUser->setPassword($this->encoderFactory->getEncoder(User::class)->encodePassword('admin', null));
         $adminUser->setEmail('admin@test.fr');
         $adminUser->setRole('ROLE_ADMIN');
 
